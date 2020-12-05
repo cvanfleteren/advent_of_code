@@ -833,13 +833,9 @@ object Day5 extends App {
     lastRange.start
   }
 
-  def decodeRow(in: String): Int = {
-    decode(127, 'F', 'B')(in)
-  }
+  val decodeRow = decode(127, 'F', 'B') _
 
-  def decodeSeat(in: String): Int = {
-    decode(7, 'L', 'R')(in)
-  }
+  def decodeSeat = decode(7, 'L', 'R') _
 
   def calculate(in: String): (Int, Int, Int) = {
     val row = decodeRow(in.substring(0, 7))
