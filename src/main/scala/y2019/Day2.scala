@@ -9,7 +9,7 @@ object Day2 extends App {
   )
 
 
-  def prepareProgram(input1: Int, input2:Int)(program:Array[Int]): Array[Int] = {
+  def prepareInputs(input1: Int, input2:Int)(program:Array[Int]): Array[Int] = {
     program(1) = input1
     program(2) = input2
     program
@@ -20,17 +20,17 @@ object Day2 extends App {
     program.grouped(4).foldLeft(true) { case (continue, group) =>
       if (continue) {
         group.toList match {
+          case 99 :: tail =>
+            false
+
           case opcode :: param1 :: param2 :: param3 :: Nil =>
             val (result, continue) = opcode match {
               case 1 => (program(param1) + program(param2), true)
               case 2 => (program(param1) * program(param2), true)
-              case 99 => (0, false) // 99 == stop
             }
             program(param3) = result
 
             continue
-          case 99 :: tail =>
-            false // stop
         }
       } else {
         false
@@ -40,20 +40,17 @@ object Day2 extends App {
     program.toList
   }
 
-  val part1 = calc(prepareProgram(12, 2)(in.toArray))
+  val part1 = calc(prepareInputs(12, 2)(in.toArray))
   println(part1.head)
-
 
   val results = (for {
     i1 <- 0 to 99
     i2 <- 0 to 99
   } yield {
-    (i1, i2, calc(prepareProgram(i1, i2)(in.toArray)))
+    (i1, i2, calc(prepareInputs(i1, i2)(in.toArray)))
   })
 
 
   val part2 = results.find(r => r._3.head == 19690720).map(x => x._1 * 100 + x._2)
   println(part2)
-
-
 }
