@@ -2241,7 +2241,4 @@ object Day6 extends App {
   println(count(in))
   println(count2(in))
 
-
-
-
 }
