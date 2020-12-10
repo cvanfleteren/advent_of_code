@@ -735,5 +735,7 @@ object Day8 extends App {
   println(attemptFix(inTest).accum)
   println(attemptFix(in).accum)
 
+  println(Int.MaxValue)
+
 
 }
