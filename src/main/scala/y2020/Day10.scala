@@ -161,10 +161,11 @@ object Day10 extends App {
   )
 
   def jolts(in: List[Int]): Int = {
-    val max = (0 :: in.max + 3 :: in).sorted
+    val allJolts = (0 :: in.max + 3 :: in).sorted
 
-    val ones = max.sliding(2).count(l => l.last - l.head == 1)
-    val threes = max.sliding(2).count(l => l.last - l.head == 3)
+    val diffs =  allJolts.sliding(2).map(l => l.last - l.head).toList
+    val ones = diffs.count(_ == 1)
+    val threes =  diffs.count(_ == 3)
 
     ones * threes
   }
@@ -195,5 +196,6 @@ object Day10 extends App {
     (scala.math.pow(7, counts.fours) * Math.pow( 4, counts.threes) * Math.pow(2, counts.twos))
   }
 
+  println(BigDecimal(jolts(in)))
   println(BigDecimal(combinations(in)))
 }
